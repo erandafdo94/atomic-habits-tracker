@@ -1,6 +1,9 @@
 @AtomicHabits_HostAddress = http://localhost:5198
 
-GET {{AtomicHabits_HostAddress}}/weatherforecast/
-Accept: application/json
+### Add a new habit
+POST {{AtomicHabits_HostAddress}}/api/habits/add-habit
+Content-Type: application/json
 
-###
+{
+  "HabitName": "No smoking"
+}

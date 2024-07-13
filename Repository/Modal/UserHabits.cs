@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,6 +14,7 @@ namespace AtomicHabits.Repository.Modal
 
         //Navigation properties
         public string UserId { get; set; }
+        [JsonIgnore]
         public IdentityUser User { get; set; }
     }
 }
