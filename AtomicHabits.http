@@ -1,9 +1,0 @@
-@AtomicHabits_HostAddress = http://localhost:5198
-
-### Add a new habit
-POST {{AtomicHabits_HostAddress}}/api/habits/add-habit
-Content-Type: application/json
-
-{
-  "HabitName": "No smoking"
-}

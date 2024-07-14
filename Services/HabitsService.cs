@@ -41,17 +41,17 @@ namespace AtomicHabits.Services
             await _baseRepo.DeleteAsync(existingHabit);
         }
 
-        public async Task UpdateHabit(UserHabitDto habit, int habitId)
+        public async Task UpdateHabit(UserHabitsUpdateDto habit)
         {
-            var existingHabit = await _baseRepo.GetByIdAsync(habitId);
+            var existingHabit = await _baseRepo.GetByIdAsync(habit.Id);
 
             if (existingHabit == null)
             {
                 throw new Exception("Habit does not exists");
             }
 
-            var habitForDb = _mapper.Map<UserHabitDto, UserHabits>(habit);
-            await _baseRepo.UpdateAsync(habitForDb);
+            existingHabit.HabitName = habit.HabitName;
+            await _baseRepo.UpdateAsync(existingHabit);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace AtomicHabits.Services
         public MappingProfile()
         {
             CreateMap<UserHabitDto, UserHabits>();
+            CreateMap<UserHabitsUpdateDto, UserHabits>();
         }
 
     }

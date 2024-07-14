@@ -9,7 +9,7 @@ namespace AtomicHabits.Services.Interfaces
     public interface IHabitsService
     {
         Task AddHabit(UserHabitDto habit);
-        Task UpdateHabit(UserHabitDto habit, int habitId);
+        Task UpdateHabit(UserHabitsUpdateDto habit);
         Task DeleteHabit(int habitId);
     }
 }

@@ -33,9 +33,9 @@ namespace AtomicHabits.Controllers
         }
 
         [HttpPost("update-habit")]
-        public async Task<IActionResult> AddHabit(UserHabitDto habit, int habitId)
+        public async Task<IActionResult> AddHabit(UserHabitsUpdateDto habit)
         {
-            await _habitsService.UpdateHabit(habit, habitId);
+            await _habitsService.UpdateHabit(habit);
             return Ok(
                  GenericResponse<object>.SuccessResponse(
                      null,
