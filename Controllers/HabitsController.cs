@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AtomicHabits.Common;
 using AtomicHabits.Dto;
 using AtomicHabits.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,41 @@ namespace AtomicHabits.Controllers
         {
             _habitsService = habitsService;
         }
+
         [HttpPost("add-habit")]
-        public async Task<IActionResult> AddHabit([FromBody] UserHabitDto habit)
+        public async Task<IActionResult> AddHabit(UserHabitDto habit)
         {
-            var result = _habitsService.AddHabit(habit);
-            return Ok(result.ToString());
+            await _habitsService.AddHabit(habit);
+            return Ok(
+                 GenericResponse<object>.SuccessResponse(
+                     null,
+                     "Success!"
+                 )
+             );
+        }
+
+        [HttpPost("update-habit")]
+        public async Task<IActionResult> AddHabit(UserHabitDto habit, int habitId)
+        {
+            await _habitsService.UpdateHabit(habit, habitId);
+            return Ok(
+                 GenericResponse<object>.SuccessResponse(
+                     null,
+                     "Success!"
+                 )
+             );
+        }
+
+        [HttpPost("delete-habit")]
+        public async Task<IActionResult> DeleteHabit(int habitId)
+        {
+            await _habitsService.DeleteHabit(habitId);
+            return Ok(
+                 GenericResponse<object>.SuccessResponse(
+                     null,
+                     "Success!"
+                 )
+             );
         }
     }
 }

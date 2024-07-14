@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AtomicHabits.Common;
 using AtomicHabits.Dto;
 using AtomicHabits.Repository;
 using AtomicHabits.Repository.Modal;
@@ -26,25 +27,31 @@ namespace AtomicHabits.Services
         {
             var habitForDb = _mapper.Map<UserHabitDto, UserHabits>(habit);
             habitForDb.UserId = "ccbadc5b-1314-4ea9-8426-1f6fced65931";
-            try
-            {
-                await _baseRepo.AddAsync(habitForDb);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
+            await _baseRepo.AddAsync(habitForDb);
         }
 
-        public Task DeleteHabit(UserHabitDto habit)
+        public async Task DeleteHabit(int habitId)
         {
-            throw new NotImplementedException();
+            var existingHabit = await _baseRepo.GetByIdAsync(habitId);
+
+            if (existingHabit == null)
+            {
+                throw new Exception("Habit does not exists");
+            }
+            await _baseRepo.DeleteAsync(existingHabit);
         }
 
-        public Task UpdateHabit(UserHabitDto habit)
+        public async Task UpdateHabit(UserHabitDto habit, int habitId)
         {
-            throw new NotImplementedException();
+            var existingHabit = await _baseRepo.GetByIdAsync(habitId);
+
+            if (existingHabit == null)
+            {
+                throw new Exception("Habit does not exists");
+            }
+
+            var habitForDb = _mapper.Map<UserHabitDto, UserHabits>(habit);
+            await _baseRepo.UpdateAsync(habitForDb);
         }
     }
 }

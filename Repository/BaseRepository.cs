@@ -16,6 +16,13 @@ namespace AtomicHabits.Repository
             _context = context;
             _dbSet = context.Set<T>();
         }
+
+        public async Task<T> GetByIdAsync(object id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+
         public async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
@@ -23,14 +30,17 @@ namespace AtomicHabits.Repository
             return entity;
         }
 
-        public Task<T> DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
